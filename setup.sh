@@ -17,7 +17,7 @@ export LANG=ru_RU.UTF-8
 
 # Проверяем, что интернет есть
 errorscount="$(ping -c 3 google.com 2<&1| grep -icE 'unknown|expired|unreachable|time out')"
-if ["$errorscount" != 0]; then
+if [["$errorscount" != 0]]; then
 	echo "Нет подключения к интернету";
 	exit;
 fi
@@ -27,11 +27,11 @@ echo "Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch" >> /etc/pacman.
 
 #Установка системы
 pacstrap -i /mnt base base-devel
-arch-chroot /mnt pacman -S grub efibootmgr
-genfstab -p /mnt &gt;&gt; /mnt/etc/fstab
+arch-chroot /mnt pacman -S grub efibootmgr --noconfirm
+genfstab -p /mnt /mnt/etc/fstab
 
 #Копирование скрипта установки
-cp ./install.sh /mnt/
+cp ./ /mnt/scripte
 
 cp ./etc/locale.gen /mnt/etc/locale.gen
 
@@ -51,9 +51,10 @@ localectl set-keymap ru
 setfont cyr-sun16
 localectl set-locale LANG="ru_RU.UTF-8"
 export LANG=ru_RU.UTF-8
-cat <<EOF1 
+cat <<EOF1
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 EOF1 >> /etc/pacman.conf
-install.sh
+chmod 777 /scripte/install.sh
+./scripte/install.sh
 EOF
