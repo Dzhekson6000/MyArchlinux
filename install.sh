@@ -23,18 +23,17 @@ fi
 #Получаем необходимые параметры
 echo "Введите имя пользователя которого хотите создать: "
 # Считываем имя пользователя
-read user
+read newusername
 
-
-
-
-#---- тут должно быть копирование etc
+useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,wheel -s /bin/bash $newusername
+echo "Введите пароль пользователя: "
+passwd $newusername
 
 locale-gen
 export LANG=ru_RU.UTF-8
 
 #обновляем список зеркал
-pacman -Syyu
+pacman -Syu
 
 #Установка iw, зашифрованное соединение, прошифки для вайфая, гит, базовый пакет разработчика, регулятор громкости alsa, терминал, шрифт1, шрифт2,
 #просмотрщик картинок, браузер, Flash-плагин для браузера, росмотрщик изображений, видео плеер,
