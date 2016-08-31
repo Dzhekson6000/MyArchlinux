@@ -1,5 +1,26 @@
 #!/bin/bash
 
+locale-gen
+export LANG=ru_RU.UTF-8
+mkinitcpio -p linux
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+grub-mkconfig -o /boot/grub/grub.cfg
+echo "Введите пароль для root:"
+passwd
+echo "Введите имя компьютера:"
+read newhostname
+hostnamectl set-hostname $newhostname
+timedatectl set-timezone Europe/Moscow
+localectl set-keymap ru
+setfont cyr-sun16
+localectl set-locale LANG="ru_RU.UTF-8"
+export LANG=ru_RU.UTF-8
+
+#cat <<EOF1
+#[multilib]
+#Include = /etc/pacman.d/mirrorlist
+#EOF1 >> /etc/pacman.conf
+
 # Проверяем, что скрипт запущен из под рута
 if [[ "$(whoami)" != "root" ]]; then
 	echo "Скрипт запущен не от суперпользователя. Запустите от root!";
@@ -8,7 +29,7 @@ fi
 
 # Проверяем, что интернет есть
 errorscount="$(ping -c 3 google.com 2<&1| grep -icE 'unknown|expired|unreachable|time out')"
-if ["$errorscount" != 0]; then
+if [["$errorscount" != 0]]; then
 	echo "Нет подключения к интернету";
 	exit;
 fi
@@ -21,9 +42,6 @@ read newusername
 useradd -m -g users -G audio,games,lp,optical,power,scanner,storage,video,wheel -s /bin/bash $newusername
 echo "Введите пароль пользователя: "
 passwd $newusername
-
-locale-gen
-export LANG=ru_RU.UTF-8
 
 #обновляем список зеркал
 pacman -Syu

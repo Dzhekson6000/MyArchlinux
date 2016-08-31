@@ -36,25 +36,6 @@ cp ./ /mnt/scripte
 cp ./etc/locale.gen /mnt/etc/locale.gen
 
 arch-chroot /mnt /bin/bash <<EOF
-locale-gen
-export LANG=ru_RU.UTF-8
-mkinitcpio -p linux
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-grub-mkconfig -o /boot/grub/grub.cfg
-echo "Введите пароль для root:"
-passwd
-echo "Введите имя компьютера:"
-read newhostname
-hostnamectl set-hostname $newhostname
-timedatectl set-timezone Europe/Moscow
-localectl set-keymap ru
-setfont cyr-sun16
-localectl set-locale LANG="ru_RU.UTF-8"
-export LANG=ru_RU.UTF-8
-cat <<EOF1
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-EOF1 >> /etc/pacman.conf
 chmod 777 /scripte/install.sh
 ./scripte/install.sh
 EOF
