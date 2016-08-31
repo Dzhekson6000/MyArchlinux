@@ -37,6 +37,5 @@ cp etc/locale.gen /mnt/etc/locale.gen
 
 arch-chroot /mnt /bin/bash <<EOF
 chmod 777 /scripte/install.sh
-cd /
-./scripte/install.sh
+/scripte/install.sh
 EOF
