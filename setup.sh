@@ -31,9 +31,9 @@ arch-chroot /mnt pacman -S grub efibootmgr --noconfirm
 genfstab -p /mnt /mnt/etc/fstab
 
 #Копирование скрипта установки
-cp ./ /mnt/scripte
+cp -r . /mnt/scripte
 
-cp ./etc/locale.gen /mnt/etc/locale.gen
+cp etc/locale.gen /mnt/etc/locale.gen
 
 arch-chroot /mnt /bin/bash <<EOF
 chmod 777 /scripte/install.sh
