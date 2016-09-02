@@ -46,11 +46,11 @@ passwd $newusername
 #обновляем список зеркал
 pacman -Syu
 
-#Установка iw, зашифрованное соединение, прошифки для вайфая, гит, регулятор громкости alsa, терминал, шрифт1, шрифт2,
+#Установка iw, зашифрованное соединение, прошифки для вайфая, гит, просмотр гит папки, регулятор громкости alsa, терминал, шрифт1, шрифт2,
 #просмотрщик картинок, браузер, Flash-плагин для браузера, росмотрщик изображений, видео плеер,
 #скриншоттер, LightDM, менеджер сетей, виджет раскладки, файловый менеджер
 #диспечер задач, офисный пакет, русский язык для офисного пакета, i3status, трансляции, просмотр изображений
-pacman -S iw wpa_supplicant dialog git alsa-utils rxvt-unicode ttf-droid ttf-dejavu feh firefox flashplugin sxiv vlc shutter Lightdm network-manager-applet sbxkb ranger htop libreoffice-fresh libreoffice-fresh-ru i3status obs-studio sxiv --noconfirm
+pacman -S iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf-dejavu feh firefox flashplugin sxiv vlc shutter Lightdm network-manager-applet sbxkb ranger htop libreoffice-fresh libreoffice-fresh-ru i3status obs-studio sxiv --noconfirm
 
 #устанавиваем иксы
 pacman -S xorg-xrandr --noconfirm
