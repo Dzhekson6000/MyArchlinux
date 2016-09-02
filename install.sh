@@ -58,7 +58,7 @@ pacman -S xorg-xrandr --noconfirm
 #устанавливаем yaourt
 mkdir /tmp && cd /tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /tmp/yaourt && makepkg -sri' $user
 
-#Устанавивание пакеты из AUR: lightdm, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
+#Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
 su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin --noconfirm' $user
 
 # Заканчиваем выполнение
