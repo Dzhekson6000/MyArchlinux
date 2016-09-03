@@ -55,10 +55,18 @@ pacman -S xorg-xrandr --noconfirm
 mkdir /tmp && cd /tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /tmp/yaourt && makepkg -sri' $user
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
-su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin --noconfirm' $user
+su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $user
 
 #копирование конфигураций пользователя
 cp -r ./home /home/$newusername/
+
+#запускаем сервис lightdm
+systemctl enable lightdm
+
+cat <<EOF1
+#!/bin/sh
+feh  —bg-scale '/home/$newusername/Images/wallpaper.png'
+EOF1 >> /home/$newusername/.fehbg
 
 # Заканчиваем выполнение
 echo -e "Готово! Можно перезагружать компьютер.\n© Ilya Chizanov, 2016"
