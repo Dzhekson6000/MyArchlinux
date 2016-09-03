@@ -32,7 +32,7 @@ echo "$newhostname" > /etc/hostname
 
 echo "[multilib]\nInclude = /etc/pacman.d/mirrorlist"  >> /etc/pacman.conf
 
-echo "Введите имя пользователя которого хотите создать: "
+echo "Введите имя пользователя которого хотите создать(только символы латинского алфавита и _): "
 # Считываем имя пользователя
 read newusername
 
@@ -53,10 +53,10 @@ pacman -S iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf
 pacman -S xorg-xrandr --noconfirm
 
 #устанавливаем yaourt
-mkdir /scripte_tmp/tmp && cd /scripte_tmp/tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /scripte_tmp/tmp/yaourt && makepkg -sri' $newhostname
+mkdir /scripte_tmp/tmp && cd /scripte_tmp/tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /scripte_tmp/tmp/yaourt && makepkg -sri' $newusername
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
-su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newhostname
+su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newusername
 
 #копирование конфигураций пользователя
 cp -r /scripte_tmp/home /home/$newusername/
