@@ -6,6 +6,9 @@ if [[ "$(whoami)" != "root" ]]; then
 	exit;
 fi
 
+#копирование etc и usr
+cp -r ./etc /etc
+cp -r ./usr /usr
 
 locale-gen
 export LANG=ru_RU.UTF-8
@@ -27,13 +30,6 @@ cat <<EOF1
 [multilib]
 Include = /etc/pacman.d/mirrorlist
 EOF1 >> /etc/pacman.conf
-
-# Проверяем, что интернет есть
-errorscount="$(ping -c 3 google.com 2<&1| grep -icE 'unknown|expired|unreachable|time out')"
-if [["$errorscount" != 0]]; then
-	echo "Нет подключения к интернету";
-	exit;
-fi
 
 echo "Введите имя пользователя которого хотите создать: "
 # Считываем имя пользователя
@@ -60,6 +56,9 @@ mkdir /tmp && cd /tmp && git clone https://aur.archlinux.org/yaourt.git && su -c
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
 su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin --noconfirm' $user
+
+#копирование конфигураций пользователя
+cp -r ./home /home/$newusername/
 
 # Заканчиваем выполнение
 echo -e "Готово! Можно перезагружать компьютер.\n© Ilya Chizanov, 2016"
