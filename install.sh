@@ -7,8 +7,8 @@ if [[ "$(whoami)" != "root" ]]; then
 fi
 
 #копирование etc и usr
-cp -r ./etc /etc
-cp -r ./usr /usr
+cp -r /scripte_tmp/etc /etc
+cp -r /scripte_tmp/usr /usr
 
 locale-gen
 export LANG=ru_RU.UTF-8
@@ -52,13 +52,13 @@ pacman -S iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf
 pacman -S xorg-xrandr --noconfirm
 
 #устанавливаем yaourt
-mkdir /tmp && cd /tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /tmp/yaourt && makepkg -sri' $user
+mkdir /scripte_tmp/tmp && cd /scripte_tmp/tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /scripte_tmp/tmp/yaourt && makepkg -sri' $newhostname
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
-su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $user
+su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newhostname
 
 #копирование конфигураций пользователя
-cp -r ./home /home/$newusername/
+cp -r /scripte_tmp/home /home/$newusername/
 
 #запускаем сервис lightdm
 systemctl enable lightdm
@@ -67,6 +67,9 @@ cat <<EOF1
 #!/bin/sh
 feh  —bg-scale '/home/$newusername/Images/wallpaper.png'
 EOF1 >> /home/$newusername/.fehbg
+
+#очистка
+rm -r /scripte_tmp
 
 # Заканчиваем выполнение
 echo -e "Готово! Можно перезагружать компьютер.\n© Ilya Chizanov, 2016"

@@ -23,6 +23,6 @@ arch-chroot /mnt pacman -S grub efibootmgr --noconfirm
 genfstab -p /mnt /mnt/etc/fstab
 
 #Копирование скрипта установки
-cp -r . /mnt/scripte
+cp -r . /mnt/scripte_tmp
 
-arch-chroot /mnt /scripte/install.sh
+arch-chroot /mnt /scripte_tmp/install.sh
