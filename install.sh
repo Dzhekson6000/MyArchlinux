@@ -53,7 +53,7 @@ pacman -S iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf
 pacman -S xorg-xrandr --noconfirm
 
 #устанавливаем yaourt
-mkdir /scripte_tmp/tmp && cd /scripte_tmp/tmp && git clone https://aur.archlinux.org/yaourt.git && su -c 'cd /scripte_tmp/tmp/yaourt && makepkg -sri' $newusername
+mkdir /scripte_tmp/tmp && cd /scripte_tmp/tmp && git clone https://aur.archlinux.org/yaourt.git && cd /scripte_tmp/tmp/yaourt && makepkg -sri && cd /
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
 su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newusername
