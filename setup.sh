@@ -6,10 +6,6 @@ if [[ "$(whoami)" != "root" ]]; then
 	exit;
 fi
 
-#Загрузка ракладки
-loadkeys ru
-setfont cyr-sun16
-
 cp ./etc/locale.gen /etc/locale.gen
 locale-gen
 export LANG=ru_RU.UTF-8
@@ -19,7 +15,7 @@ echo "Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch" >> /etc/pacman.
 
 #Установка системы
 pacstrap -i /mnt base base-devel
-arch-chroot /mnt pacman -S grub efibootmgr --noconfirm
+arch-chroot /mnt pacman -S grub efibootmgr os-prober --noconfirm
 genfstab -p /mnt /mnt/etc/fstab
 
 #Копирование скрипта установки

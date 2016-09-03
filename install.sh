@@ -10,26 +10,27 @@ fi
 cp -r /scripte_tmp/etc /etc
 cp -r /scripte_tmp/usr /usr
 
+#локали
 locale-gen
+echo LANG=ru_RU.UTF-8 > /etc/locale.conf
 export LANG=ru_RU.UTF-8
+
+ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+
+#grub
 mkinitcpio -p linux
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
+
+#root пользователь
 echo "Введите пароль для root:"
 passwd
 echo "Введите имя компьютера:"
-read newhostname
-hostnamectl set-hostname $newhostname
-timedatectl set-timezone Europe/Moscow
-localectl set-keymap ru
-setfont cyr-sun16
-localectl set-locale LANG="ru_RU.UTF-8"
-export LANG=ru_RU.UTF-8
 
-cat <<EOF1
-[multilib]
-Include = /etc/pacman.d/mirrorlist
-EOF1 >> /etc/pacman.conf
+read newhostname
+echo "$newhostname" > /etc/hostname
+
+echo "[multilib]\nInclude = /etc/pacman.d/mirrorlist"  >> /etc/pacman.conf
 
 echo "Введите имя пользователя которого хотите создать: "
 # Считываем имя пользователя
@@ -63,10 +64,7 @@ cp -r /scripte_tmp/home /home/$newusername/
 #запускаем сервис lightdm
 systemctl enable lightdm
 
-cat <<EOF1
-#!/bin/sh
-feh  —bg-scale '/home/$newusername/Images/wallpaper.png'
-EOF1 >> /home/$newusername/.fehbg
+echo "#!/bin/sh\nfeh  —bg-scale '/home/$newusername/Images/wallpaper.png'" >> /home/$newusername/.fehbg
 
 #очистка
 rm -r /scripte_tmp
