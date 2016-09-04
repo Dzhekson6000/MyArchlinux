@@ -7,8 +7,8 @@ if [[ "$(whoami)" != "root" ]]; then
 fi
 
 #копирование etc и usr
-cp -r /scripte_tmp/etc /etc
-cp -r /scripte_tmp/usr /usr
+cp -r /scripte_tmp/etc/* /etc
+cp -r /scripte_tmp/usr/* /usr
 
 #локали
 locale-gen
@@ -30,7 +30,7 @@ echo "Введите имя компьютера:"
 read newhostname
 echo "$newhostname" > /etc/hostname
 
-echo "[multilib]\nInclude = /etc/pacman.d/mirrorlist"  >> /etc/pacman.conf
+echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist"  >> /etc/pacman.conf
 
 echo "Введите имя пользователя которого хотите создать(только символы латинского алфавита и _): "
 # Считываем имя пользователя
@@ -41,6 +41,7 @@ echo "Введите пароль пользователя: "
 passwd $newusername
 
 #конфигурация sudo
+echo "$newusername ALL=(ALL) NOPASSWD: ALL"  >> /etc/sudoers
 chmod -c 0440 /etc/sudoers
 
 #обновляем список зеркал
@@ -57,19 +58,20 @@ pacman -S xorg-xrandr --noconfirm
 
 #устанавливаем yaourt
 su -c 'cd ~ && git clone https://aur.archlinux.org/package-query.git && cd package-query && makepkg -sri && cd .. rm -r package-query' $newusername
-su -c 'cd ~ && git clone https://aur.archlinux.org/yaourt.git && cd yaourt && makepkg -sri && cd .. && rm -r ~/yaourt' $newusername
+su -c 'cd ~ && git clone https://aur.archlinux.org/yaourt.git && cd yaourt && makepkg -sri && cd .. && rm -r yaourt' $newusername
 
 #Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
 su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newusername
 
 #копирование конфигураций пользователя
-cp -r /scripte_tmp/home /home/$newusername/
+cp -r /scripte_tmp/home/* /home/$newusername/
 
 #запускаем сервис lightdm
 systemctl enable lightdm
 
-echo "#!/bin/sh\nfeh  —bg-scale '/home/$newusername/Images/wallpaper.png'" >> /home/$newusername/.fehbg
+echo -e "#!/bin/sh\nfeh  —bg-scale '/home/$newusername/Images/wallpaper.png'" >> /home/$newusername/.fehbg
 
+cp -r /scripte_tmp/etc/sudoers /etc/sudoers
 #очистка
 rm -r /scripte_tmp
 
