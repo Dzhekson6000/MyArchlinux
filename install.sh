@@ -50,8 +50,8 @@ pacman -Syu
 #Установка автодополнение командной строки, iw, зашифрованное соединение, прошифки для вайфая, гит, просмотр гит папки, регулятор громкости alsa, терминал, шрифт1, шрифт2,
 #просмотрщик картинок, браузер, Flash-плагин для браузера, росмотрщик изображений, видео плеер,
 #скриншоттер, LightDM, менеджер сетей, виджет раскладки, файловый менеджер
-#диспечер задач, офисный пакет, русский язык для офисного пакета, i3status, трансляции, просмотр изображений
-pacman -S bash-completion iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf-dejavu feh firefox flashplugin sxiv vlc shutter lightdm network-manager-applet sbxkb ranger htop libreoffice-fresh libreoffice-fresh-ru i3status obs-studio sxiv --noconfirm
+#диспечер задач, офисный пакет, русский язык для офисного пакета, i3status, трансляции, просмотр изображений, GUI git
+pacman -S bash-completion iw wpa_supplicant dialog git tig alsa-utils rxvt-unicode ttf-droid ttf-dejavu feh firefox flashplugin sxiv vlc shutter lightdm network-manager-applet sbxkb ranger htop libreoffice-fresh libreoffice-fresh-ru i3status obs-studio sxiv git-cola --noconfirm
 
 #устанавиваем иксы
 pacman -S xorg-xrandr --noconfirm
@@ -60,8 +60,8 @@ pacman -S xorg-xrandr --noconfirm
 su -c 'cd ~ && git clone https://aur.archlinux.org/package-query.git && cd package-query && makepkg -sri && cd .. rm -r package-query' $newusername
 su -c 'cd ~ && git clone https://aur.archlinux.org/yaourt.git && cd yaourt && makepkg -sri && cd .. && rm -r yaourt' $newusername
 
-#Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент
-su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion --noconfirm' $newusername
+#Устанавивание пакеты из AUR: lightdm greeter, оконный менеджер, запуск приложений, редактор видео, текстовый редактор, торрент-качалка, Slack клиент, Telegram клиент, MEGA клиент
+su -c 'yaourt -S lightdm-webkit-greeter i3-gaps j4-dmenu-desktop-git flowblade atom-editor rtorrent-color slack-desktop telegram-desktop-bin clion megasync --noconfirm' $newusername
 
 #копирование конфигураций пользователя
 cp -r /scripte_tmp/home/* /home/$newusername/
