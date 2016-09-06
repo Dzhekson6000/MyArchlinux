@@ -6,6 +6,9 @@ if [[ "$(whoami)" != "root" ]]; then
 	exit;
 fi
 
+loadkeys ru
+setfont cyr-sun16
+
 cp ./etc/locale.gen /etc/locale.gen
 locale-gen
 export LANG=ru_RU.UTF-8
